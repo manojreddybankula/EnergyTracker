@@ -3,9 +3,6 @@ using EnergyTracker.Domain.Entities;
 
 namespace EnergyTracker.Infrastructure.Data
 {
-    /// <summary>
-    /// EF Core DbContext for energy tracking.
-    /// </summary>
     public class EnergyDbContext : DbContext
     {
         public EnergyDbContext(DbContextOptions<EnergyDbContext> options) : base(options) { }
@@ -21,7 +18,6 @@ namespace EnergyTracker.Infrastructure.Data
 
             modelBuilder.Entity<ProductPrice>().HasKey(p => p.Product);
 
-            // Seed default prices
             modelBuilder.Entity<ProductPrice>().HasData(
                 new ProductPrice { Product = "electricity", PricePerKWh = 0.30 },
                 new ProductPrice { Product = "gas", PricePerKWh = 0.20 }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using EnergyTracker.Application.Interfaces;
 using EnergyTracker.Domain.Entities;
 using EnergyTracker.Infrastructure.Data;
@@ -7,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnergyTracker.Infrastructure.Repositories
 {
-    /// <summary>
-    /// EF Core repository for product pricing.
-    /// </summary>
     public class ProductPriceRepository : IProductPriceRepository
     {
         private readonly EnergyDbContext _db;

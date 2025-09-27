@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EnergyTracker.Application.DTOs;
 using EnergyTracker.Application.Interfaces;
 using EnergyTracker.Domain.Entities;
@@ -9,13 +5,12 @@ using System.Globalization;
 
 namespace EnergyTracker.Application.Services
 {
-    /// <summary>
-    /// Application service for energy analytics and business logic.
-    /// </summary>
     public class EnergyService
     {
         private readonly IEnergyReadingRepository _readingRepo;
         private readonly IProductPriceRepository _priceRepo;
+        private const int MaxBatchSize = 10000;
+
 
         public EnergyService(IEnergyReadingRepository readingRepo, IProductPriceRepository priceRepo)
         {
@@ -26,9 +21,9 @@ namespace EnergyTracker.Application.Services
         public async Task<(bool Success, List<string> Errors)> UploadReadingsAsync(UploadReadingsRequest request)
         {
             var errors = new List<string>();
-            if (request.Readings.Count > 10_000)
+            if (request.Readings.Count > MaxBatchSize)
             {
-                errors.Add("Batch size exceeds 10,000.");
+                errors.Add($"Batch size exceeds {MaxBatchSize}.");
                 return (false, errors);
             }
 
@@ -55,6 +50,7 @@ namespace EnergyTracker.Application.Services
                 });
             }
 
+
             if (validReadings.Count > 0)
                 await _readingRepo.AddReadingsAsync(validReadings);
 
@@ -67,7 +63,7 @@ namespace EnergyTracker.Application.Services
             var prices = await _priceRepo.GetAllPricesAsync();
             var result = new List<AggregatedReportDto>();
 
-            IEnumerable<IGrouping<string, EnergyReading>> groups = groupBy switch
+            IEnumerable<IGrouping<string, EnergyReading>> groupReadings = groupBy switch
             {
                 "day" => readings.GroupBy(r => r.Timestamp.ToString("yyyy-MM-dd")),
                 "week" => readings.GroupBy(r => ISOWeek.GetYear(r.Timestamp) + "-W" + ISOWeek.GetWeekOfYear(r.Timestamp).ToString("D2")),
@@ -75,20 +71,17 @@ namespace EnergyTracker.Application.Services
                 _ => throw new ArgumentException("Invalid groupBy value.")
             };
 
-            foreach (var g in groups)
-            {
-                foreach (var prod in g.GroupBy(x => x.Product))
-                {
-                    var price = prices.FirstOrDefault(p => p.Product == prod.Key)?.PricePerKWh ?? 0;
-                    result.Add(new AggregatedReportDto
-                    {
-                        Period = g.Key,
-                        Product = prod.Key,
-                        TotalKWh = prod.Sum(x => x.KWh),
-                        TotalCost = Math.Round(prod.Sum(x => x.KWh) * price, 2)
-                    });
-                }
-            }
+            result = groupReadings.SelectMany(reading => reading.GroupBy(x => x.Product),
+                                    (reading, prod) => new AggregatedReportDto
+                                    {
+                                        Period = reading.Key,
+                                        Product = prod.Key,
+                                        TotalKWh = prod.Sum(x => x.KWh),
+                                        TotalCost = Math.Round(prod.Sum(x => x.KWh) *
+                                            (prices.FirstOrDefault(p => p.Product == prod.Key)?.PricePerKWh ?? 0), 2)
+                                    })
+                                    .ToList();
+
             return result.OrderBy(r => r.Period).ToList();
         }
 

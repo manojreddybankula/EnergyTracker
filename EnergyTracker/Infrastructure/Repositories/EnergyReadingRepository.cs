@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EnergyTracker.Application.Interfaces;
 using EnergyTracker.Domain.Entities;
 using EnergyTracker.Infrastructure.Data;
@@ -9,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnergyTracker.Infrastructure.Repositories
 {
-    /// <summary>
-    /// EF Core repository for energy readings.
-    /// </summary>
     public class EnergyReadingRepository : IEnergyReadingRepository
     {
         private readonly EnergyDbContext _db;

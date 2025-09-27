@@ -2,9 +2,6 @@ using System;
 
 namespace EnergyTracker.Domain.Entities
 {
-    /// <summary>
-    /// Represents a single energy reading for a user and product at a specific timestamp.
-    /// </summary>
     public class EnergyReading
     {
         public Guid Id { get; set; }
