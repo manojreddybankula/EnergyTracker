@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36518.9 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyTracker", "EnergyTracker\EnergyTracker.csproj", "{DC2FB1B9-ADC4-462F-9184-5A6D3168D873}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyTracker.UnitTests", "EnergyTracker.UnitTests\EnergyTracker.UnitTests.csproj", "{0FE5F524-C329-41CB-8812-D03C3E473F83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DC2FB1B9-ADC4-462F-9184-5A6D3168D873}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC2FB1B9-ADC4-462F-9184-5A6D3168D873}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC2FB1B9-ADC4-462F-9184-5A6D3168D873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE5F524-C329-41CB-8812-D03C3E473F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE5F524-C329-41CB-8812-D03C3E473F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE5F524-C329-41CB-8812-D03C3E473F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE5F524-C329-41CB-8812-D03C3E473F83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

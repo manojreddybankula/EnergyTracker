@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-
-namespace EnergyTracker.Application.DTOs
+namespace EnergyTracker.Domains
 {
-    /// <summary>
-    /// DTO for a single reading in the upload batch.
-    /// </summary>
     public class ReadingDto
     {
         public string Product { get; set; } = null!;
@@ -13,9 +7,6 @@ namespace EnergyTracker.Application.DTOs
         public DateTime Timestamp { get; set; }
     }
 
-    /// <summary>
-    /// DTO for uploading a batch of readings.
-    /// </summary>
     public class UploadReadingsRequest
     {
         public string UserId { get; set; } = null!;

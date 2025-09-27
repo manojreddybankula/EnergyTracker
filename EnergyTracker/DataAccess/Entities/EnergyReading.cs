@@ -1,6 +1,6 @@
 using System;
 
-namespace EnergyTracker.Domain.Entities
+namespace EnergyTracker.DataAccess.Entities
 {
     public class EnergyReading
     {

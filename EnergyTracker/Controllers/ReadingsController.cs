@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using EnergyTracker.Application.DTOs;
-using EnergyTracker.Application.Services;
+using EnergyTracker.Services;
+using EnergyTracker.Domains;
 
 namespace EnergyTracker.Controllers
 {

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using EnergyTracker.Application.Services;
+using EnergyTracker.Services;
 
 namespace EnergyTracker.Controllers
 {

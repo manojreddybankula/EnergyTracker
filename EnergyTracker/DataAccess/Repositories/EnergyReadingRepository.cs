@@ -1,9 +1,9 @@
-using EnergyTracker.Application.Interfaces;
-using EnergyTracker.Domain.Entities;
-using EnergyTracker.Infrastructure.Data;
+using EnergyTracker.DataAccess.DataContexts;
+using EnergyTracker.DataAccess.Entities;
+using EnergyTracker.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace EnergyTracker.Infrastructure.Repositories
+namespace EnergyTracker.DataAccess.Repositories
 {
     public class EnergyReadingRepository : IEnergyReadingRepository
     {

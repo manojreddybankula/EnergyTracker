@@ -1,8 +1,5 @@
-namespace EnergyTracker.Application.DTOs
+namespace EnergyTracker.Domains
 {
-    /// <summary>
-    /// DTO for anomaly detection results.
-    /// </summary>
     public class AnomalyDto
     {
         public string Period { get; set; } = null!;

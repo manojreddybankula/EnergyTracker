@@ -1,9 +1,9 @@
-using EnergyTracker.Application.Interfaces;
-using EnergyTracker.Domain.Entities;
-using EnergyTracker.Infrastructure.Data;
+using EnergyTracker.DataAccess.Entities;
+using EnergyTracker.DataAccess.Interfaces;
+using EnergyTracker.DataAccess.DataContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace EnergyTracker.Infrastructure.Repositories
+namespace EnergyTracker.DataAccess.Repositories
 {
     public class ProductPriceRepository : IProductPriceRepository
     {

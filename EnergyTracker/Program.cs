@@ -1,9 +1,9 @@
-using EnergyTracker.Infrastructure.Data;
-using EnergyTracker.Infrastructure.Repositories;
-using EnergyTracker.Application.Interfaces;
-using EnergyTracker.Application.Services;
+using EnergyTracker.DataAccess.DataContexts;
+using EnergyTracker.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using EnergyTracker.DataAccess.Interfaces;
+using EnergyTracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

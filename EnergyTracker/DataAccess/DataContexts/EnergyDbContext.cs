@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using EnergyTracker.Domain.Entities;
+using EnergyTracker.DataAccess.Entities;
 
-namespace EnergyTracker.Infrastructure.Data
+namespace EnergyTracker.DataAccess.DataContexts
 {
     public class EnergyDbContext : DbContext
     {

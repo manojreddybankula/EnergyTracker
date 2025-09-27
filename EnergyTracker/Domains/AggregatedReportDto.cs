@@ -1,8 +1,5 @@
-namespace EnergyTracker.Application.DTOs
+namespace EnergyTracker.Domains
 {
-    /// <summary>
-    /// DTO for aggregated report results.
-    /// </summary>
     public class AggregatedReportDto
     {
         public string Period { get; set; } = null!;

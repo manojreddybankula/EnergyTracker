@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EnergyTracker.Domain.Entities;
+using EnergyTracker.DataAccess.Entities;
 
-namespace EnergyTracker.Application.Interfaces
+namespace EnergyTracker.DataAccess.Interfaces
 {
-    /// <summary>
-    /// Repository abstraction for energy readings.
-    /// </summary>
     public interface IEnergyReadingRepository
     {
         Task AddReadingsAsync(IEnumerable<EnergyReading> readings);

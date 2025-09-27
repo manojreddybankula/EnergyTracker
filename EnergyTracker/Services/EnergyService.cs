@@ -1,9 +1,9 @@
-using EnergyTracker.Application.DTOs;
-using EnergyTracker.Application.Interfaces;
-using EnergyTracker.Domain.Entities;
+using EnergyTracker.DataAccess.Interfaces;
+using EnergyTracker.DataAccess.Entities;
 using System.Globalization;
+using EnergyTracker.Domains;
 
-namespace EnergyTracker.Application.Services
+namespace EnergyTracker.Services
 {
     public class EnergyService
     {
