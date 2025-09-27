@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  energytracker-api:
+    build: .
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=energy.db
+      - Seq__ServerUrl=http://seq:5341
+    depends_on:
+      - seq
+    volumes:
+      - energytracker-data:/app
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_NOAUTHENTICATION=true
+volumes:
+  energytracker-data:

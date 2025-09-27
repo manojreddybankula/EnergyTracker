@@ -1,0 +1,59 @@
+Assignment – Energy Consumption Tracking & Analytics API
+Objective
+Design and implement a cloud-ready API, preferably in .NET Core, to track electricity and gas consumption, calculate user-specific energy costs over various time intervals, and expose both real-time and historical insights. The solution should demonstrate clean architecture principles, robust programming practices, cloud-hosting readiness, and advanced analytical grouping.
+User Story
+As a consumer energy platform, I want to allow users to upload energy usage readings and generate real-time and aggregated cost insights, so that I can:
+•	Provide daily, weekly (ISO week), and monthly consumption/cost reports.
+•	Detect anomalies in user consumption.
+•	Scale and host the solution in Azure with minimal friction. (localhost demo is accepted)
+Requirements
+Core Functionality
+1.	1. POST – Upload Readings
+Accept a batch of electricity/gas readings:
+{  "userId": "12345", "readings": [  { "product": "electricity", "kWh": 12.5, "timestamp": "2025-01-02T14:30:00Z" }, { "product": "gas", "kWh": 5.1, "timestamp": "2025-01-02T15:00:00Z" } ] }
+•	Validations:
+•	No negative kWh.
+•	No duplicate readings for the same (userId, product, timestamp).
+•	Reject if batch size > 10,000 to avoid abuse.
+•	Persist valid readings in SQLite (local) but design with EF Core + Repository pattern so the DB can later be swapped for Azure SQL.
+2.	2. GET – Aggregated Report
+Query endpoint:
+GET /report?userId=12345&groupBy=day|week|month&product=gas|electricity|all
+•	Returns aggregated kWh + cost, grouped by the chosen period.
+•	Weekly grouping must use ISO-8601 standard weeks.
+3.	3. GET – Anomaly Detection
+Endpoint:
+GET /anomalies?userId=12345&period=month
+•	Detects when a user’s consumption in a given period is > 50% above their rolling average for the last 3 periods.
+•	Return flagged periods with details.
+4.	4. Product Pricing
+•	Electricity: 0.30 EUR per kWh.
+•	Gas: 0.20 EUR per kWh.
+•	Assume pricing is configurable and comes from the database (not hardcoded).
+Non-Functional Requirements
+•	Architecture:
+•	Follow Clean Architecture (Domain, Application, Infrastructure, API layers).
+•	Use Dependency Injection throughout.
+•	No business logic in controllers.
+•	API Design:
+•	Swagger for documentation.
+•	Proper error responses (400 for bad input, 409 for duplicates, etc.).
+•	Database:
+•	SQLite for local dev
+•	Abstract DB layer so it can switch to Azure SQL.
+•	Performance & Validation:
+•	Handle huge dataset efficiently in a Table.
+•	Use LINQ for grouping but optimize queries to avoid in-memory bottlenecks.
+•	Unit Testing:
+•	Test validation logic, aggregation grouping, and anomaly detection.
+•	Mock DB/repository for isolation.
+•	Azure Readiness:
+•	Add configuration for Azure deployment.
+•	Provide an YAML pipeline code to deploy into Azure.
+Deliverables
+5.	1. Source Code in GitHub or zip.
+6.	2. README with:
+•	Setup instructions (local + Azure).
+•	Assumptions and limitations.
+•	Example API calls with curl or Postman.
+•	Explanation of architecture decisions.

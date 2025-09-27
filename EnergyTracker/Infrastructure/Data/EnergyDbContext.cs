@@ -1,0 +1,31 @@
+using Microsoft.EntityFrameworkCore;
+using EnergyTracker.Domain.Entities;
+
+namespace EnergyTracker.Infrastructure.Data
+{
+    /// <summary>
+    /// EF Core DbContext for energy tracking.
+    /// </summary>
+    public class EnergyDbContext : DbContext
+    {
+        public EnergyDbContext(DbContextOptions<EnergyDbContext> options) : base(options) { }
+
+        public DbSet<EnergyReading> Readings => Set<EnergyReading>();
+        public DbSet<ProductPrice> ProductPrices => Set<ProductPrice>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EnergyReading>()
+                .HasIndex(r => new { r.UserId, r.Product, r.Timestamp })
+                .IsUnique();
+
+            modelBuilder.Entity<ProductPrice>().HasKey(p => p.Product);
+
+            // Seed default prices
+            modelBuilder.Entity<ProductPrice>().HasData(
+                new ProductPrice { Product = "electricity", PricePerKWh = 0.30 },
+                new ProductPrice { Product = "gas", PricePerKWh = 0.20 }
+            );
+        }
+    }
+}
