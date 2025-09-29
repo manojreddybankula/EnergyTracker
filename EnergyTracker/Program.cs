@@ -24,7 +24,11 @@ builder.Services.AddScoped<IEnergyReadingRepository, EnergyReadingRepository>();
 builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
 builder.Services.AddScoped<EnergyService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = false;
+});
+;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

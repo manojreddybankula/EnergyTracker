@@ -1,6 +1,3 @@
 @EnergyTracker_HostAddress = http://localhost:5232
 
-GET {{EnergyTracker_HostAddress}}/weatherforecast/
-Accept: application/json
-
 ###

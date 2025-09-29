@@ -21,6 +21,12 @@ namespace EnergyTracker.Services
         public async Task<(bool Success, List<string> Errors)> UploadReadingsAsync(UploadReadingsRequest request)
         {
             var errors = new List<string>();
+            if(!request.Readings.Any())
+            {
+                errors.Add("No reading to upload.");
+                return (false, errors);
+            }
+
             if (request.Readings.Count > MaxBatchSize)
             {
                 errors.Add($"Batch size exceeds {MaxBatchSize}.");
