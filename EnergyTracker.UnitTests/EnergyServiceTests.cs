@@ -164,7 +164,7 @@ namespace EnergyTracker.UnitTests
         }
 
         [TestMethod]
-        public async Task GivenUploadReadings_WhenReadingsEmpty_ThenHandlesEmptyReading()
+        public async Task GivenUploadReadings_WhenReadingsEmpty_ThenReturnValidationMessage()
         {
             var repo = new Mock<IEnergyReadingRepository>();
             var priceRepo = new Mock<IProductPriceRepository>();
@@ -172,8 +172,8 @@ namespace EnergyTracker.UnitTests
 
             var req = new UploadReadingsRequest { UserId = "u4", Readings = new List<ReadingDto>() };
             var (success, errors) = await service.UploadReadingsAsync(req);
-            Assert.IsTrue(success);
-            Assert.AreEqual(0, errors.Count);
+            Assert.IsFalse(success);
+            Assert.AreEqual(1, errors.Count);
         }
 
         [TestMethod]
